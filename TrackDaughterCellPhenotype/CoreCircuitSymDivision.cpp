@@ -426,7 +426,7 @@ void simulate_normal(population &P, double end_time, double eta, int eta_id, int
 		}
 		else
 		{
-			boost::numeric::odeint::integrate(SNAIL_ZEB_miR200_miR34_system, P[rep_id], 0.0, t - update_time[rep_id], 0.1);
+			boost::numeric::odeint::integrate(SNAIL_ZEB_miR200_miR34_system, P[death_id], 0.0, t - update_time[death_id], 0.1);
 			get_phenotypes(P, phenotype);
 			for(auto p: TrackDiv)
 			{
