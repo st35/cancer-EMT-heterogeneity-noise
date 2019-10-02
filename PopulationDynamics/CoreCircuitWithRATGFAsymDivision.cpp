@@ -239,20 +239,17 @@ void add_asym_noise_normal(population &P, int rep_id, int new_id, int rep_phenot
 
 	std::normal_distribution <> distribution{0, 1};
 
-	double noise_1 = -P[rep_id][6] - 10e3;
-	double noise_2 = -P[new_id][6] - 10e3;
+        P[rep_id][6] = P[rep_id][6] + distribution(generator)*eta;
+        P[new_id][6] = P[new_id][6] + distribution(generator)*eta;
 
-	while(noise_1 < 0.0)
-	{
-		noise_1 = P[rep_id][6] + distribution(generator)*eta;
-	}
-	while(noise_2 < 0.0)
-	{
-		noise_2 = P[new_id][6] + distribution(generator)*eta;
-	}
-
-	P[rep_id][6] = noise_1;
-	P[new_id][6] = noise_2;
+        if(P[rep_id][6] < 0.0)
+        {
+                P[rep_id][6] = 0.0;
+        }
+        if(P[new_id][6] < 0.0)
+        {
+                P[new_id][6] = 0.0;
+        }
 }
 
 void simulate_normal(population &P, double end_time, double eta, int eta_id, int sim_type, int rank, boost::array <double, 3> &GR)
